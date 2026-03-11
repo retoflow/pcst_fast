@@ -1,6 +1,6 @@
 [project]
 name = "pcst_fast"
-dynamic = ["version"]
+version = "1.0.10+numpy2"
 description = "A fast implementation of the Goemans-Williamson scheme for the prize-collecting Steiner tree / forest problem."
 readme = "README.md"
 license = {text = "MIT"}
