@@ -1,5 +1,8 @@
 [![Build Status](https://api.travis-ci.org/fraenkel-lab/pcst_fast.svg)](https://travis-ci.org/fraenkel-lab/pcst_fast)
 
+# Build packaged for py 3.11/ 3.12 / 3.13 on debian trixie 
+
+    sudo docker compose run --rm  pcst_builder
 pcst_fast
 =========
 

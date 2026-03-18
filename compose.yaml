@@ -1,0 +1,13 @@
+services:
+  pcst_builder:
+    image: ghcr.io/astral-sh/uv:python3.13-trixie
+    build:
+        context: .
+    volumes:
+      - .:/pcst_fast
+    command: >
+      bash -c "cd /pcst_fast
+      && uv build -p 3.11
+      && uv build -p 3.12
+      && uv build -p 3.13
+      && chown -R 1000:1000 dist"
