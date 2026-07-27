@@ -1,8 +1,45 @@
 [![Build Status](https://api.travis-ci.org/fraenkel-lab/pcst_fast.svg)](https://travis-ci.org/fraenkel-lab/pcst_fast)
 
-# Build packaged for py 3.11/ 3.12 / 3.13 on debian trixie 
+# Building wheels with Docker
 
-    sudo docker compose run --rm  pcst_builder
+Wheels are built inside Docker using the `ghcr.io/astral-sh/uv` images on Debian trixie.
+Services are named `py<version>-<arch>`, covering Python 3.13–3.15 on `amd64` and `arm64`.
+
+**Build a single wheel**
+
+```bash
+docker compose run --rm py313-amd64
+docker compose run --rm py314-arm64
+docker compose run --rm py315-amd64
+# etc.
+```
+
+**Build all combinations at once**
+
+```bash
+docker compose up
+```
+
+**Clean up containers and images afterwards**
+
+```bash
+docker compose down --rmi all
+```
+
+Wheels are written to `./dist/`. Ownership is set to `1000:1000` after each build.
+
+**Cross-compiling aarch64 on x86:** requires QEMU registered via binfmt_misc.
+Check if it's available:
+
+```bash
+docker run --rm --platform linux/arm64 alpine uname -m   # should print aarch64
+```
+
+If not, register it once:
+
+```bash
+docker run --privileged --rm tonistiigi/binfmt --install arm64
+```
 pcst_fast
 =========
 

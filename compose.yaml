@@ -1,13 +1,59 @@
+x-base: &base
+  volumes:
+    - .:/pcst_fast
+  working_dir: /pcst_fast
+
 services:
-  pcst_builder:
+  py313-amd64:
+    <<: *base
     image: ghcr.io/astral-sh/uv:python3.13-trixie
-    build:
-        context: .
-    volumes:
-      - .:/pcst_fast
+    platform: linux/amd64
     command: >
-      bash -c "cd /pcst_fast
-      && uv build -p 3.11
-      && uv build -p 3.12
+      bash -c "git config --global --add safe.directory /pcst_fast
       && uv build -p 3.13
+      && chown -R 1000:1000 dist"
+
+  py313-arm64:
+    <<: *base
+    image: ghcr.io/astral-sh/uv:python3.13-trixie
+    platform: linux/arm64
+    command: >
+      bash -c "git config --global --add safe.directory /pcst_fast
+      && uv build -p 3.13
+      && chown -R 1000:1000 dist"
+
+  py314-amd64:
+    <<: *base
+    image: ghcr.io/astral-sh/uv:python3.14-trixie
+    platform: linux/amd64
+    command: >
+      bash -c "git config --global --add safe.directory /pcst_fast
+      && uv build -p 3.14
+      && chown -R 1000:1000 dist"
+
+  py314-arm64:
+    <<: *base
+    image: ghcr.io/astral-sh/uv:python3.14-trixie
+    platform: linux/arm64
+    command: >
+      bash -c "git config --global --add safe.directory /pcst_fast
+      && uv build -p 3.14
+      && chown -R 1000:1000 dist"
+
+  py315-amd64:
+    <<: *base
+    image: ghcr.io/astral-sh/uv:python3.15-trixie
+    platform: linux/amd64
+    command: >
+      bash -c "git config --global --add safe.directory /pcst_fast
+      && uv build -p 3.15
+      && chown -R 1000:1000 dist"
+
+  py315-arm64:
+    <<: *base
+    image: ghcr.io/astral-sh/uv:python3.15-trixie
+    platform: linux/arm64
+    command: >
+      bash -c "git config --global --add safe.directory /pcst_fast
+      && uv build -p 3.15
       && chown -R 1000:1000 dist"
